@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shijie99.dao.tpf.FlightBookMapper" >
+  <resultMap id="BaseResultMap" type="com.shijie99.dao.tpf.pojo.FlightBook" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="bktype" property="bktype" jdbcType="VARCHAR" />
+    <result column="ds" property="ds" jdbcType="VARCHAR" />
+    <result column="session_id" property="sessionId" jdbcType="VARCHAR" />
+    <result column="priceinfo" property="priceinfo" jdbcType="VARCHAR" />
+    <result column="execute_time" property="executeTime" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="message" property="message" jdbcType="VARCHAR" />
+    <result column="cid" property="cid" jdbcType="VARCHAR" />
+    <result column="fromcity" property="fromcity" jdbcType="VARCHAR" />
+    <result column="tocity" property="tocity" jdbcType="VARCHAR" />
+    <result column="fromdate" property="fromdate" jdbcType="VARCHAR" />
+    <result column="retdate" property="retdate" jdbcType="VARCHAR" />
+    <result column="flighttype" property="flighttype" jdbcType="VARCHAR" />
+    <result column="guid" property="guid" jdbcType="VARCHAR" />
+    <result column="cachehash" property="cachehash" jdbcType="VARCHAR" />
+    <result column="qhash" property="qhash" jdbcType="VARCHAR" />
+    <result column="routecodes" property="routecodes" jdbcType="VARCHAR" />
+    <result column="dsid" property="dsid" jdbcType="VARCHAR" />
+    <result column="fromto" property="fromto" jdbcType="VARCHAR" />
+    <result column="lastdate" property="lastdate" jdbcType="TIMESTAMP" />
+    <result column="price_add_info" property="priceAddInfo" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.shijie99.dao.tpf.pojo.FlightBookWithBLOBs" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+    <result column="olddata" property="olddata" jdbcType="LONGVARCHAR" />
+    <result column="query_conditions" property="queryConditions" jdbcType="LONGVARCHAR" />
+    <result column="routings" property="routings" jdbcType="LONGVARCHAR" />
+    <result column="pricestr" property="pricestr" jdbcType="LONGVARCHAR" />
+    <result column="qunar_json" property="qunarJson" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, bktype, ds, session_id, priceinfo, execute_time, status, message, cid, fromcity, 
+    tocity, fromdate, retdate, flighttype, guid, cachehash, qhash, routecodes, dsid, 
+    fromto, lastdate, price_add_info
+  </sql>
+  <sql id="Blob_Column_List" >
+    content, olddata, query_conditions, routings, pricestr, qunar_json
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.shijie99.dao.tpf.pojo.FlightBookExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from flight_book
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.shijie99.dao.tpf.pojo.FlightBookExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from flight_book
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from flight_book
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from flight_book
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.shijie99.dao.tpf.pojo.FlightBookExample" >
+    delete from flight_book
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.shijie99.dao.tpf.pojo.FlightBookWithBLOBs" useGeneratedKeys="true" keyProperty="id" >
+    insert into flight_book (bktype, ds, session_id, 
+      priceinfo, execute_time, status, 
+      message, cid, fromcity, 
+      tocity, fromdate, retdate, 
+      flighttype, guid, cachehash, 
+      qhash, routecodes, dsid, 
+      fromto, lastdate, price_add_info, 
+      content, olddata, query_conditions, 
+      routings, pricestr, qunar_json
+      )
+    values (#{bktype,jdbcType=VARCHAR}, #{ds,jdbcType=VARCHAR}, #{sessionId,jdbcType=VARCHAR}, 
+      #{priceinfo,jdbcType=VARCHAR}, #{executeTime,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{message,jdbcType=VARCHAR}, #{cid,jdbcType=VARCHAR}, #{fromcity,jdbcType=VARCHAR}, 
+      #{tocity,jdbcType=VARCHAR}, #{fromdate,jdbcType=VARCHAR}, #{retdate,jdbcType=VARCHAR}, 
+      #{flighttype,jdbcType=VARCHAR}, #{guid,jdbcType=VARCHAR}, #{cachehash,jdbcType=VARCHAR}, 
+      #{qhash,jdbcType=VARCHAR}, #{routecodes,jdbcType=VARCHAR}, #{dsid,jdbcType=VARCHAR}, 
+      #{fromto,jdbcType=VARCHAR}, #{lastdate,jdbcType=TIMESTAMP}, #{priceAddInfo,jdbcType=VARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR}, #{olddata,jdbcType=LONGVARCHAR}, #{queryConditions,jdbcType=LONGVARCHAR}, 
+      #{routings,jdbcType=LONGVARCHAR}, #{pricestr,jdbcType=LONGVARCHAR}, #{qunarJson,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.shijie99.dao.tpf.pojo.FlightBookWithBLOBs" useGeneratedKeys="true" keyProperty="id" >
+    insert into flight_book
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bktype != null" >
+        bktype,
+      </if>
+      <if test="ds != null" >
+        ds,
+      </if>
+      <if test="sessionId != null" >
+        session_id,
+      </if>
+      <if test="priceinfo != null" >
+        priceinfo,
+      </if>
+      <if test="executeTime != null" >
+        execute_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="fromcity != null" >
+        fromcity,
+      </if>
+      <if test="tocity != null" >
+        tocity,
+      </if>
+      <if test="fromdate != null" >
+        fromdate,
+      </if>
+      <if test="retdate != null" >
+        retdate,
+      </if>
+      <if test="flighttype != null" >
+        flighttype,
+      </if>
+      <if test="guid != null" >
+        guid,
+      </if>
+      <if test="cachehash != null" >
+        cachehash,
+      </if>
+      <if test="qhash != null" >
+        qhash,
+      </if>
+      <if test="routecodes != null" >
+        routecodes,
+      </if>
+      <if test="dsid != null" >
+        dsid,
+      </if>
+      <if test="fromto != null" >
+        fromto,
+      </if>
+      <if test="lastdate != null" >
+        lastdate,
+      </if>
+      <if test="priceAddInfo != null" >
+        price_add_info,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="olddata != null" >
+        olddata,
+      </if>
+      <if test="queryConditions != null" >
+        query_conditions,
+      </if>
+      <if test="routings != null" >
+        routings,
+      </if>
+      <if test="pricestr != null" >
+        pricestr,
+      </if>
+      <if test="qunarJson != null" >
+        qunar_json,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bktype != null" >
+        #{bktype,jdbcType=VARCHAR},
+      </if>
+      <if test="ds != null" >
+        #{ds,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null" >
+        #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="priceinfo != null" >
+        #{priceinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="executeTime != null" >
+        #{executeTime,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null" >
+        #{cid,jdbcType=VARCHAR},
+      </if>
+      <if test="fromcity != null" >
+        #{fromcity,jdbcType=VARCHAR},
+      </if>
+      <if test="tocity != null" >
+        #{tocity,jdbcType=VARCHAR},
+      </if>
+      <if test="fromdate != null" >
+        #{fromdate,jdbcType=VARCHAR},
+      </if>
+      <if test="retdate != null" >
+        #{retdate,jdbcType=VARCHAR},
+      </if>
+      <if test="flighttype != null" >
+        #{flighttype,jdbcType=VARCHAR},
+      </if>
+      <if test="guid != null" >
+        #{guid,jdbcType=VARCHAR},
+      </if>
+      <if test="cachehash != null" >
+        #{cachehash,jdbcType=VARCHAR},
+      </if>
+      <if test="qhash != null" >
+        #{qhash,jdbcType=VARCHAR},
+      </if>
+      <if test="routecodes != null" >
+        #{routecodes,jdbcType=VARCHAR},
+      </if>
+      <if test="dsid != null" >
+        #{dsid,jdbcType=VARCHAR},
+      </if>
+      <if test="fromto != null" >
+        #{fromto,jdbcType=VARCHAR},
+      </if>
+      <if test="lastdate != null" >
+        #{lastdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="priceAddInfo != null" >
+        #{priceAddInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="olddata != null" >
+        #{olddata,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="queryConditions != null" >
+        #{queryConditions,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="routings != null" >
+        #{routings,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pricestr != null" >
+        #{pricestr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="qunarJson != null" >
+        #{qunarJson,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.shijie99.dao.tpf.pojo.FlightBookExample" resultType="java.lang.Integer" >
+    select count(*) from flight_book
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update flight_book
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.bktype != null" >
+        bktype = #{record.bktype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ds != null" >
+        ds = #{record.ds,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sessionId != null" >
+        session_id = #{record.sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priceinfo != null" >
+        priceinfo = #{record.priceinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.executeTime != null" >
+        execute_time = #{record.executeTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.message != null" >
+        message = #{record.message,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cid != null" >
+        cid = #{record.cid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromcity != null" >
+        fromcity = #{record.fromcity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tocity != null" >
+        tocity = #{record.tocity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromdate != null" >
+        fromdate = #{record.fromdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retdate != null" >
+        retdate = #{record.retdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flighttype != null" >
+        flighttype = #{record.flighttype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.guid != null" >
+        guid = #{record.guid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cachehash != null" >
+        cachehash = #{record.cachehash,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qhash != null" >
+        qhash = #{record.qhash,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routecodes != null" >
+        routecodes = #{record.routecodes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dsid != null" >
+        dsid = #{record.dsid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromto != null" >
+        fromto = #{record.fromto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastdate != null" >
+        lastdate = #{record.lastdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.priceAddInfo != null" >
+        price_add_info = #{record.priceAddInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.olddata != null" >
+        olddata = #{record.olddata,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.queryConditions != null" >
+        query_conditions = #{record.queryConditions,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.routings != null" >
+        routings = #{record.routings,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.pricestr != null" >
+        pricestr = #{record.pricestr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.qunarJson != null" >
+        qunar_json = #{record.qunarJson,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update flight_book
+    set id = #{record.id,jdbcType=INTEGER},
+      bktype = #{record.bktype,jdbcType=VARCHAR},
+      ds = #{record.ds,jdbcType=VARCHAR},
+      session_id = #{record.sessionId,jdbcType=VARCHAR},
+      priceinfo = #{record.priceinfo,jdbcType=VARCHAR},
+      execute_time = #{record.executeTime,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      message = #{record.message,jdbcType=VARCHAR},
+      cid = #{record.cid,jdbcType=VARCHAR},
+      fromcity = #{record.fromcity,jdbcType=VARCHAR},
+      tocity = #{record.tocity,jdbcType=VARCHAR},
+      fromdate = #{record.fromdate,jdbcType=VARCHAR},
+      retdate = #{record.retdate,jdbcType=VARCHAR},
+      flighttype = #{record.flighttype,jdbcType=VARCHAR},
+      guid = #{record.guid,jdbcType=VARCHAR},
+      cachehash = #{record.cachehash,jdbcType=VARCHAR},
+      qhash = #{record.qhash,jdbcType=VARCHAR},
+      routecodes = #{record.routecodes,jdbcType=VARCHAR},
+      dsid = #{record.dsid,jdbcType=VARCHAR},
+      fromto = #{record.fromto,jdbcType=VARCHAR},
+      lastdate = #{record.lastdate,jdbcType=TIMESTAMP},
+      price_add_info = #{record.priceAddInfo,jdbcType=VARCHAR},
+      content = #{record.content,jdbcType=LONGVARCHAR},
+      olddata = #{record.olddata,jdbcType=LONGVARCHAR},
+      query_conditions = #{record.queryConditions,jdbcType=LONGVARCHAR},
+      routings = #{record.routings,jdbcType=LONGVARCHAR},
+      pricestr = #{record.pricestr,jdbcType=LONGVARCHAR},
+      qunar_json = #{record.qunarJson,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update flight_book
+    set id = #{record.id,jdbcType=INTEGER},
+      bktype = #{record.bktype,jdbcType=VARCHAR},
+      ds = #{record.ds,jdbcType=VARCHAR},
+      session_id = #{record.sessionId,jdbcType=VARCHAR},
+      priceinfo = #{record.priceinfo,jdbcType=VARCHAR},
+      execute_time = #{record.executeTime,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      message = #{record.message,jdbcType=VARCHAR},
+      cid = #{record.cid,jdbcType=VARCHAR},
+      fromcity = #{record.fromcity,jdbcType=VARCHAR},
+      tocity = #{record.tocity,jdbcType=VARCHAR},
+      fromdate = #{record.fromdate,jdbcType=VARCHAR},
+      retdate = #{record.retdate,jdbcType=VARCHAR},
+      flighttype = #{record.flighttype,jdbcType=VARCHAR},
+      guid = #{record.guid,jdbcType=VARCHAR},
+      cachehash = #{record.cachehash,jdbcType=VARCHAR},
+      qhash = #{record.qhash,jdbcType=VARCHAR},
+      routecodes = #{record.routecodes,jdbcType=VARCHAR},
+      dsid = #{record.dsid,jdbcType=VARCHAR},
+      fromto = #{record.fromto,jdbcType=VARCHAR},
+      lastdate = #{record.lastdate,jdbcType=TIMESTAMP},
+      price_add_info = #{record.priceAddInfo,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shijie99.dao.tpf.pojo.FlightBookWithBLOBs" >
+    update flight_book
+    <set >
+      <if test="bktype != null" >
+        bktype = #{bktype,jdbcType=VARCHAR},
+      </if>
+      <if test="ds != null" >
+        ds = #{ds,jdbcType=VARCHAR},
+      </if>
+      <if test="sessionId != null" >
+        session_id = #{sessionId,jdbcType=VARCHAR},
+      </if>
+      <if test="priceinfo != null" >
+        priceinfo = #{priceinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="executeTime != null" >
+        execute_time = #{executeTime,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=VARCHAR},
+      </if>
+      <if test="cid != null" >
+        cid = #{cid,jdbcType=VARCHAR},
+      </if>
+      <if test="fromcity != null" >
+        fromcity = #{fromcity,jdbcType=VARCHAR},
+      </if>
+      <if test="tocity != null" >
+        tocity = #{tocity,jdbcType=VARCHAR},
+      </if>
+      <if test="fromdate != null" >
+        fromdate = #{fromdate,jdbcType=VARCHAR},
+      </if>
+      <if test="retdate != null" >
+        retdate = #{retdate,jdbcType=VARCHAR},
+      </if>
+      <if test="flighttype != null" >
+        flighttype = #{flighttype,jdbcType=VARCHAR},
+      </if>
+      <if test="guid != null" >
+        guid = #{guid,jdbcType=VARCHAR},
+      </if>
+      <if test="cachehash != null" >
+        cachehash = #{cachehash,jdbcType=VARCHAR},
+      </if>
+      <if test="qhash != null" >
+        qhash = #{qhash,jdbcType=VARCHAR},
+      </if>
+      <if test="routecodes != null" >
+        routecodes = #{routecodes,jdbcType=VARCHAR},
+      </if>
+      <if test="dsid != null" >
+        dsid = #{dsid,jdbcType=VARCHAR},
+      </if>
+      <if test="fromto != null" >
+        fromto = #{fromto,jdbcType=VARCHAR},
+      </if>
+      <if test="lastdate != null" >
+        lastdate = #{lastdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="priceAddInfo != null" >
+        price_add_info = #{priceAddInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="olddata != null" >
+        olddata = #{olddata,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="queryConditions != null" >
+        query_conditions = #{queryConditions,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="routings != null" >
+        routings = #{routings,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pricestr != null" >
+        pricestr = #{pricestr,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="qunarJson != null" >
+        qunar_json = #{qunarJson,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.shijie99.dao.tpf.pojo.FlightBookWithBLOBs" >
+    update flight_book
+    set bktype = #{bktype,jdbcType=VARCHAR},
+      ds = #{ds,jdbcType=VARCHAR},
+      session_id = #{sessionId,jdbcType=VARCHAR},
+      priceinfo = #{priceinfo,jdbcType=VARCHAR},
+      execute_time = #{executeTime,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      message = #{message,jdbcType=VARCHAR},
+      cid = #{cid,jdbcType=VARCHAR},
+      fromcity = #{fromcity,jdbcType=VARCHAR},
+      tocity = #{tocity,jdbcType=VARCHAR},
+      fromdate = #{fromdate,jdbcType=VARCHAR},
+      retdate = #{retdate,jdbcType=VARCHAR},
+      flighttype = #{flighttype,jdbcType=VARCHAR},
+      guid = #{guid,jdbcType=VARCHAR},
+      cachehash = #{cachehash,jdbcType=VARCHAR},
+      qhash = #{qhash,jdbcType=VARCHAR},
+      routecodes = #{routecodes,jdbcType=VARCHAR},
+      dsid = #{dsid,jdbcType=VARCHAR},
+      fromto = #{fromto,jdbcType=VARCHAR},
+      lastdate = #{lastdate,jdbcType=TIMESTAMP},
+      price_add_info = #{priceAddInfo,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR},
+      olddata = #{olddata,jdbcType=LONGVARCHAR},
+      query_conditions = #{queryConditions,jdbcType=LONGVARCHAR},
+      routings = #{routings,jdbcType=LONGVARCHAR},
+      pricestr = #{pricestr,jdbcType=LONGVARCHAR},
+      qunar_json = #{qunarJson,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shijie99.dao.tpf.pojo.FlightBook" >
+    update flight_book
+    set bktype = #{bktype,jdbcType=VARCHAR},
+      ds = #{ds,jdbcType=VARCHAR},
+      session_id = #{sessionId,jdbcType=VARCHAR},
+      priceinfo = #{priceinfo,jdbcType=VARCHAR},
+      execute_time = #{executeTime,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      message = #{message,jdbcType=VARCHAR},
+      cid = #{cid,jdbcType=VARCHAR},
+      fromcity = #{fromcity,jdbcType=VARCHAR},
+      tocity = #{tocity,jdbcType=VARCHAR},
+      fromdate = #{fromdate,jdbcType=VARCHAR},
+      retdate = #{retdate,jdbcType=VARCHAR},
+      flighttype = #{flighttype,jdbcType=VARCHAR},
+      guid = #{guid,jdbcType=VARCHAR},
+      cachehash = #{cachehash,jdbcType=VARCHAR},
+      qhash = #{qhash,jdbcType=VARCHAR},
+      routecodes = #{routecodes,jdbcType=VARCHAR},
+      dsid = #{dsid,jdbcType=VARCHAR},
+      fromto = #{fromto,jdbcType=VARCHAR},
+      lastdate = #{lastdate,jdbcType=TIMESTAMP},
+      price_add_info = #{priceAddInfo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
